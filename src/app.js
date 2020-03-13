@@ -9,6 +9,7 @@ const flash = require('connect-flash');
 const con = require("./config/db.js");
 
 
+
 const app = express();
 
 
@@ -17,6 +18,9 @@ const app = express();
 const peritosRouter = require("./routes/peritosRouter")
 const peritajesRouter = require("./routes/peritajesRouter")
 const dashRouter = require("./routes/dashRouter")
+const authRouter = require("./routes/authRouter");
+
+ 
  
 
 //setings
@@ -30,12 +34,10 @@ app.use(session({ cookie: { maxAge: 60000 },
   secret: 'woot',
   resave: false, 
   saveUninitialized: false}));
-
-
-
 // middlewares
 app.use(morgan('dev'));
 app.use(flash());
+ 
 
 
 // Global Variables
@@ -43,7 +45,7 @@ app.use((req, res, next) => {
   res.locals.success_msg = req.flash('success_msg');
   res.locals.error_msg = req.flash('error_msg');
   res.locals.error = req.flash('error');
-  // res.locals.user = req.user || null;
+  res.locals.user = req.user || null;
   next();
 });
 
@@ -67,10 +69,13 @@ app.use(function(req, res, next) {
 
 
 //routes
-//app.use('/', rutas);
+ 
 app.use("/peritos", peritosRouter);
 app.use("/peritajes", peritajesRouter);
-app.use("/dash", dashRouter);
+app.use("/dash", dashRouter); 
+app.use("/",authRouter);
+
+
 //static files
 
 app.use(express.static(path.join(__dirname,'public')));

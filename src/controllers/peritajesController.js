@@ -11,8 +11,10 @@ const ubicacion = require("../model/ubicacion");
 module.exports = {
   
     index: function(req, res) {
+     user =  req.session.user_data ;  
+     console.log(user);
       peritajes.get(req.con, function(err, rows) {
-        res.render("peritajes/peritajes", { data: rows ,  moment:moment})
+        res.render("peritajes/peritajes", { data: rows ,  moment:moment, user})
       })
     },
 
@@ -96,107 +98,3 @@ module.exports = {
     
   },
   } 
-
-  
-
-
-
-  
-
-
- 
-/*
-controller.list = (req, res) => {
-    req.getConnection((err,conn) => {
-        conn.query(`SELECT
-                    peritajes.id,
-                    peritajes.ruc_pericia,
-                    peritajes.fecha_pericia,
-                    peritajes.nue_pericia,
-                    peritajes.plazo_pericia,
-                    estados.gls_estado,
-                    fiscales.nombre_fiscal,
-                    peritos.nombre_perito
-                    FROM
-                    peritajes
-                    INNER JOIN estados ON peritajes.estado_pericua_id = estados.id
-                    INNER JOIN fiscales ON peritajes.fiscal_pericia_id = fiscales.id
-                    INNER JOIN peritos ON peritajes.perito_asignado_id = peritos.id`, (err, peritajes) =>{
-            if (err){
-                res.json(err);
-            }
-            
-            res.render('peritajes/peritajes',{
-                data: peritajes,
-                moment:moment
-            });
-        });
-    });
- 
-};
-
-controller.delete = (req,res) =>{
-
-
-
-
-    console.log(req.params);
-    res.send("heeeeeeee");
-
-}
-
-
-
-
-controller.registro = (req,res) =>{
-    //peritajereg
-
-    let varperito = peritos.getPeritos();
-    console.log(peritos);
-     
-    res.render('peritajes/peritajereg',{
-      data: varperito
-
-    })
-    
-  
-
-}
-
- 
-
-
-controller.view = (req,res) =>{
-    id = req.params.id;
-    req.getConnection((err,conn) => {
-        conn.query(`SELECT
-                    peritajes.id,
-                    peritajes.ruc_pericia,
-                    peritajes.fecha_pericia,
-                    peritajes.nue_pericia,
-                    peritajes.plazo_pericia,
-                    estados.gls_estado,
-                    fiscales.nombre_fiscal,
-                    peritos.nombre_perito,
-                    peritajes.info_solicitud
-                    FROM
-                    peritajes
-                    INNER JOIN estados ON peritajes.estado_pericua_id = estados.id
-                    INNER JOIN fiscales ON peritajes.fiscal_pericia_id = fiscales.id
-                    INNER JOIN peritos ON peritajes.perito_asignado_id = peritos.id
-                    where peritajes.id=`+id, (err, peritajeView) =>{
-            if (err){
-                res.json(err);
-            }
-            
-            res.render('peritajes/viewperitaje',{
-                data: peritajeView,
-                moment:moment
-            });
-        });
-    });
-  
-
-}
-
-module.exports = controller;*/

@@ -99,15 +99,19 @@
                                                         <tr>
                                                             <td><%= data[i].id %></td>                                            
                                                             <td><%=  moment(fecha).format('L'); %></td>
-                                                            <td><%= data[i].ruc_pericia %></td>
+                                                            <td><a href="http://opalix/safito/resultado_get.php?ruc=<%= data[i].ruc_pericia %>" target="_blank"><%= data[i].ruc_pericia %></a></td>
                                                             <td><%= data[i].nombre_fiscal %></td>
                                                             <td><%= data[i].nombre_perito %></td>
                                                             <td><%= data[i].gls_estado %></td>
                                                             <td>
                                                                 <a href="/peritajes/edit/<%= data[i].id %>/" class="btn btn-outline-primary">Ver</a>
 
+                                                                <% if (user) { %>
+                                                                  <a href="/peritajes/delete/<%= data[i].id %>" class="btn btn-outline-danger">Borrar</a>
                                                               
-                                                                <a href="/peritajes/delete/<%= data[i].id %>" class="btn btn-outline-danger">Borrar</a>
+                                                                  <% }%>
+                                                              </li>
+                                                               
                                                             
                                                             </td>
 
