@@ -4,14 +4,27 @@ const dash = require("../model/dash");
  
 
 const controller = {};
+
 controller.index =  (req, res) => {  
     
-        dash.getPorMes(req.con, function(err, pormes) {
-                res.render("dash/dash", { 
-                    data: pormes,moment:moment 
-                })
+        
+    dash.getPorano(req.con, function(err, porano) {       
+       let user =  req.session.user_data ;        
+        dash.getPorperito(req.con, function(err, porperito) {                                        
+            res.render("dash/dash", { 
+                porperito,
+                user,
+                porano,moment
+            })
+        
+        });
+        })
 
-            }) 
+           
+
+          
+
+           
 
 };
 module.exports = controller;

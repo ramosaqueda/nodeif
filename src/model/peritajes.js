@@ -47,6 +47,54 @@ module.exports = {
       INNER JOIN fiscales ON peritajes.fiscal_pericia_id = fiscales.id
       INNER JOIN peritos ON peritajes.perito_asignado_id = peritos.id WHERE peritajes.id =  ${id}`, callback)
     },
+
+
+    getByPerito: (con, id, callback) => {
+      con.query(`SELECT
+      peritajes.id,
+      peritajes.ruc_pericia,
+      peritajes.fecha_pericia,
+      peritajes.nue_pericia,
+      peritajes.plazo_pericia,
+      peritajes.info_solicitud,
+      peritajes.fiscal_pericia_id,
+      peritajes.perito_asignado_id,
+      peritajes.cometido_pericia,
+      estados.gls_estado,
+      fiscales.nombre_fiscal,
+      peritos.nombre_perito,
+      peritajes.estado_pericua_id,
+      peritajes.caja_ubicacion
+      FROM
+      peritajes
+      INNER JOIN estados ON peritajes.estado_pericua_id = estados.id
+      INNER JOIN fiscales ON peritajes.fiscal_pericia_id = fiscales.id
+      INNER JOIN peritos ON peritajes.perito_asignado_id = peritos.id WHERE peritajes.perito_asignado_id =  ${id}`, callback)
+    },
+
+
+    getByanoactual: (con, id, callback) => {
+      con.query(`SELECT
+      peritajes.id,
+      peritajes.ruc_pericia,
+      peritajes.fecha_pericia,
+      peritajes.nue_pericia,
+      peritajes.plazo_pericia,
+      peritajes.info_solicitud,
+      peritajes.fiscal_pericia_id,
+      peritajes.perito_asignado_id,
+      peritajes.cometido_pericia,
+      estados.gls_estado,
+      fiscales.nombre_fiscal,
+      peritos.nombre_perito,
+      peritajes.estado_pericua_id,
+      peritajes.caja_ubicacion
+      FROM
+      peritajes
+      INNER JOIN estados ON peritajes.estado_pericua_id = estados.id
+      INNER JOIN fiscales ON peritajes.fiscal_pericia_id = fiscales.id
+      INNER JOIN peritos ON peritajes.perito_asignado_id = peritos.id WHERE EXTRACT(YEAR  FROM peritajes.fecha_pericia) >= year(NOW())`, callback)
+    },
   
     create: function(con, data, callback) {
       let fecha = moment(data.fecha_pericia).format("YYYY-MM-DD");
